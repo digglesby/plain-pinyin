@@ -6,6 +6,8 @@ import { exit } from "node:process";
 import path from "path";
 import { Tone } from "../components/data/tones";
 import formatPinyin from "../components/data/formatPinyin";
+import characterLookupTrad from './characterLookupTrad.json'
+import characterLookupSimp from './characterLookupSimp.json'
 
 //We're gonna read backwards from sounds because it's already defined
 //and I'm lazy
@@ -85,12 +87,20 @@ const parseNormalizedPinyin = (normalizedPinyin: string): [Vowel, Consonant] => 
 }
 
 const getExampleSimpCharacter = (normalizedPinyin: string) => {
-    //TODO
+    
+    if (characterLookupSimp.hasOwnProperty(normalizedPinyin)){
+        return characterLookupSimp[normalizedPinyin]
+    }
+
     return ''
 }
 
 const getExampleTradCharacter = (normalizedPinyin: string) => {
-    //TODO
+
+    if (characterLookupTrad.hasOwnProperty(normalizedPinyin)){
+        return characterLookupTrad[normalizedPinyin]
+    }
+
     return ''
 }
 

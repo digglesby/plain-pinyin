@@ -3,8 +3,13 @@ import useSyllables from '../data/useSyllables';
 import { useMemo } from 'react';
 import buildTable, { TableData } from '../data/buildTable';
 import TopHeader from './TopHeader';
+import { SyllableGroup } from '../data/syllables';
 
-function PinyinTable() {
+type Props = {
+    setSyllableGroup: (newVal: undefined | SyllableGroup) => void
+}
+
+function PinyinTable(props: Props) {
 
     const [isLoading, error, syllables, reload] = useSyllables()
 
@@ -29,7 +34,11 @@ function PinyinTable() {
                 } else if (typeof(cell) === 'string') {
                     thisCell = <th key={`col${i}${p}`}>{cell}</th>
                 } else {
-                    thisCell = <td key={`col${i}${p}`}><a href={`#${cell.pinyin_normalized}`}>{cell.pinyin}</a></td>
+                    thisCell = <td key={`col${i}${p}`}>
+                        <a onClick={() => props.setSyllableGroup(cell)} href={`#${cell.pinyin_normalized}`}>
+                            {cell.pinyin}
+                        </a>
+                    </td>
                 }
 
                 return thisCell

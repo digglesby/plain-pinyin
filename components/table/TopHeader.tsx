@@ -14,8 +14,6 @@ const TopHeader = (props: Props) => {
         const distToTop = stickyParent.current.getBoundingClientRect().top
         const offset = Math.max(0, 0 - distToTop)
         stickyHeader.current.style.top = `${offset}px`
-
-        console.log(offset)
       }
 
       window.addEventListener('scroll', fixedHeader)
