@@ -1,0 +1,28 @@
+export enum Consonant {
+    None = 'n/a',
+    B = 'b',
+    P = 'p',
+    M = 'm',
+    F = 'f',
+    D = 'd',
+    T = 't',
+    N = 'n',
+    L = 'l',
+    Z = 'z',
+    C = 'c',
+    S = 's',
+    Zh = 'zh',
+    Ch = 'ch',
+    Sh = 'sh',
+    R = 'r',
+    G = 'g',
+    K = 'k',
+    H = 'h',
+    J = 'j',
+    Q = 'q',
+    X = 'x',
+    W = 'w',
+    Y = 'y',
+}
+
+export const consonantArray = Object.values(Consonant)
