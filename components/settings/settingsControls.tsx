@@ -5,13 +5,18 @@ import { Context } from "./settingsContext";
 const SettingControls = () => {
     const {volume, setVolume, playbackSpeed, setPlaybackSpeed, useTrad, setUseTrad} = useContext(Context);
     const [open, setOpen] = useState<null | 'vol' | 'speed'>(null);
+    
 
     return (
         <div className="settings-controls" onMouseLeave={() => {
             setOpen(null)
         }}>
-            <button onMouseOver={() => setOpen('speed')} className="playback-speed">{playbackSpeed.toFixed(1)}x</button>
-            <div className={`playback-speed-range ${(open == 'speed') ? 'open' : ''}`}>
+            <div className={`slider-group ${(open == 'speed') ? 'open' : ''}`}>
+                <button type="button" 
+                    onMouseOver={() => setOpen('speed')} className="playback-speed"
+                >
+                    {playbackSpeed.toFixed(1)}x
+                </button>
                 <input 
                     onSelect={() => setOpen('speed')}
                     onBlur={() => setOpen(null)}
@@ -25,8 +30,8 @@ const SettingControls = () => {
                     step={0.5}>
                 </input>
             </div>
-            <button onMouseOver={() => setOpen('vol')} className="volume"><span className="material-symbols-rounded">volume_up</span></button>
-            <div className={`volume-range ${(open == 'vol') ? 'open' : ''}`}>
+            <div className={`slider-group ${(open == 'vol') ? 'open' : ''}`}>
+                <button type="button" onMouseOver={() => setOpen('vol')} className="volume"><span className="material-symbols-outlined">volume_up</span></button>
                 <input
                     onSelect={() => setOpen('vol')}
                     onBlur={() => setOpen(null)}
@@ -44,6 +49,7 @@ const SettingControls = () => {
             <button
                 className="use-trad"
                 onClick={() => setUseTrad(!useTrad)}
+                type="button"
             >
                 {(useTrad) ? '寫字' : '写字'}
             </button>

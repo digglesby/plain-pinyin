@@ -29,22 +29,37 @@ const syllableGroupModal = (props: Props) => {
 
     return (
         <dialog
-            onClose={() => { props.setSyllableGroup(undefined)}}
+            onClose={(e) => { console.log('onClose', e); props.setSyllableGroup(undefined) }}
+            onSubmit={(e) => { console.log('onSubmit', e) }}
+            onCancel={(e) => { console.log('onCancel', e) }}
+            onInput={(e) => { console.log('onInput', e)}}
             ref={ref}
             onClick={(e) => {
-              const dialogDimensions = ref.current.getBoundingClientRect();
-              if (
-                e.clientX < dialogDimensions.left ||
-                e.clientX > dialogDimensions.right ||
-                e.clientY < dialogDimensions.top ||
-                e.clientY > dialogDimensions.bottom
-              ) {
-                ref.current.close();
-              }
+
+                if (e.screenX === 0 && e.screenY === 0) {
+                    // event not triggered from the screen.
+                    e.preventDefault()
+                    return
+                }
+
+                const dialogDimensions = ref.current.getBoundingClientRect();
+                if (
+                    e.clientX < dialogDimensions.left ||
+                    e.clientX > dialogDimensions.right ||
+                    e.clientY < dialogDimensions.top ||
+                    e.clientY > dialogDimensions.bottom
+                ) {
+                    ref.current.close();
+                }
             }}
         >
-            {Syllables}
-            <SettingControls />
+            <div>
+                <button className="close-button" onClick={() => ref.current.close()}>
+                    <span className="material-symbols-outlined">close</span>
+                </button>
+                {Syllables}
+                <SettingControls />
+            </div>
         </dialog>
     )
 }

@@ -93,13 +93,13 @@ input[type=range] {
     background: #D1D1D1;
   }
 
-.material-symbols-rounded {
+.material-symbols-outlined {
     font-variation-settings:
     'FILL' 0,
-    'wght' 100,
+    'wght' 300,
     'GRAD' 0,
-    'opsz' 48
-  }
+    'opsz' 40
+}
 
 .table-container {
     position: relative;
@@ -210,14 +210,44 @@ dialog {
     z-index: 10;
     border: 0px;
     border-radius: 0.5rem;
-    max-width: 95%;
+    max-width: 400px;
     padding: 0.5rem 1rem;
     flex-direction: column;
     width: calc(90% - 4rem);
+    overflow: visible;
 }
 
 dialog::backdrop {
     background: rgba(0, 0, 0, 0.25);
+}
+
+dialog>div {
+    position: relative;
+    margin-top: 0.5rem;
+}
+
+dialog .close-button {
+    position: absolute;
+    top: -3rem;
+    right: -3rem;
+    background: none;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    width: 32px;
+    height: 32px;
+}
+
+dialog .close-button>span {
+    font-size: 32px;
+    color: rgba(255,255,255,1);
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 800,
+    'GRAD' 0,
+    'opsz' 40
 }
 
 dialog .settings-controls {
@@ -226,7 +256,8 @@ dialog .settings-controls {
     flex-direction: row;
     align-items: end;
     margin-bottom: 0.5rem;
-    padding-top: 1rem;
+    padding-top: 0.75rem;
+    margin-top: 1.5rem;
 }
 
 dialog .settings-controls button {
@@ -239,6 +270,16 @@ dialog .settings-controls button {
     height: 32px;
     padding: 0.5rem;
     box-sizing: content-box;
+    flex-shrink: 0;
+}
+
+dialog .settings-controls>.slider-group {
+    display: flex;
+    flex-direction: row;
+    transition: width 0.2s ease-out;
+    width: 48px;
+    overflow: hidden;
+    padding-right: 0.5rem;
 }
 
 dialog .settings-controls .volume {
@@ -249,24 +290,19 @@ dialog .settings-controls .use-trad {
     justify-self: right;
 }
 
-dialog .settings-controls .volume, dialog .settings-controls .playback-speed {
-    justify-self: left;
-}
-
-dialog .settings-controls .volume-range, dialog .settings-controls .playback-speed-range {
-    width: 0px;
-    overflow: hidden;
-    transition: width 0.2s ease-out, opacity 0.2s ease-out;
+dialog .settings-controls .slider-group>input {
+    transition: opacity 0.2s ease-out;
     opacity: 0;
-    padding: 0px 0.5rem;
-    max-width: 200px;
-    align-items: center;
-    align-self: center;
+    flex: 1;
+    margin-left: 0.5rem;
 }
 
-dialog .settings-controls .volume-range.open, dialog .settings-controls .playback-speed-range.open {
-    width: min(40%, 200px);
+dialog .settings-controls .slider-group.open input {
     opacity: 1;
+}
+
+dialog .settings-controls .slider-group.open {
+    width: 200px;
 }
 
 dialog .settings-controls .use-trad {
@@ -277,6 +313,28 @@ dialog .settings-controls .spacer {
     flex:1;
 }
 
+@media only screen and (max-width: 430px) {
+    dialog .settings-controls {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    dialog .spacer {
+        display: none;
+    }
+
+    dialog .settings-controls .slider-group.open {
+        width: 100%;
+    }
+
+    dialog .settings-controls .use-trad {
+        width: 100%;
+        box-sizing: border-box;
+        height: 48px;
+    }
+}
+
 .syllable-player {
     display: flex;
     flex-direction: column;
@@ -285,6 +343,7 @@ dialog .settings-controls .spacer {
 .syllable-player>h2 {
     margin: 0px;
     vertical-align: baseline;
+    margin-bottom: 0.5rem;
 }
 
 .syllable-player>h2>span {
@@ -294,4 +353,42 @@ dialog .settings-controls .spacer {
 
     text-align: right;
     color: rgba(0,0,0,0.5)
+}
+
+.syllable-player>div {
+    display: flex;
+    flex-direction: row;
+    align-self: stretch
+}
+
+.syllable-player>.audio-track {
+    justify-content: space-between;
+    padding: 0.4rem 0rem;
+    border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+/* .syllable-player>.audio-track:nth-child(2) {
+    border-top: none;
+} */
+
+.syllable-player .audio-track>p {
+    margin: 0px;
+    align-self: center;
+}
+
+.syllable-player .audio-track>button {
+    justify-content: space-between;
+    background: none;
+    border: none;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.syllable-player .audio-track>button>span {
+    font-size: 32px;
+    font-weight: 500;
+    color: rgba(0,0,0,0.55);
 }

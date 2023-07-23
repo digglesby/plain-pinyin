@@ -34,20 +34,20 @@ const SyllableAudioTrack = (props: Props) => {
 
     const PlayButton = (!isPlaying) ?
         (
-            <button onClick={() => setIsPlaying(true)}>
-                <span className="material-symbols-rounded">play_circle</span>
+            <button type="button" onClick={() => setIsPlaying(true)}>
+                <span className="material-symbols-outlined">play_circle</span>
             </button>
         ) : (
-            <button onClick={() => setIsPlaying(false)}>
-                <span className="material-symbols-rounded">stop_circle</span>
+            <button type="button" onClick={() => setIsPlaying(false)}>
+                <span className="material-symbols-outlined">stop_circle</span>
             </button>
         )
 
-    return (<div>
+    return (<div className="audio-track">
         <p>
             {props.title}
-            {PlayButton}
         </p>
+        {PlayButton}
     </div>)
 }
 
