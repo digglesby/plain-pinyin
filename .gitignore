@@ -66,6 +66,6 @@ node_modules/
 .env
 
 .next
-# public/data/syllables.json
+public/data/syllables.json
 package-lock.json
 yarn.lock
