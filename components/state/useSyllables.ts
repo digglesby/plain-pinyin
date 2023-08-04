@@ -1,20 +1,22 @@
-import { useEffect, useState } from "react"
-import { Syllable } from "./syllables"
+import { useEffect, useMemo, useState } from "react"
+import { Syllable, SyllableGroup } from "../data/syllables"
 import axios from "axios"
-import { Consonant } from "./consonants"
-import { Vowel } from "./vowels"
+import { Consonant } from "../data/consonants"
+import { Vowel } from "../data/vowels"
+import buildTable, { TableData } from "../data/buildTable"
 
 let fetching = false
 let cachedSyllables: Syllable[] | null = null
 
 const useSyllables = (): [
-    Boolean, 
+    boolean, 
     Error | undefined, 
-    Syllable[] | 
-    null, () => void
+    Syllable[],
+    TableData,
+    () => void,
 ] => {
     const [err, setErr] = useState<Error | undefined>()
-    const [loading, setLoading] = useState<Boolean>(fetching)
+    const [loading, setLoading] = useState<boolean>(fetching)
     const [syllables, setSyllables] = useState<Syllable[]>(cachedSyllables)
 
     const reload = async () => {
@@ -42,7 +44,15 @@ const useSyllables = (): [
         }
     },[])
 
-    return [loading, err, syllables, reload]
+    const tableData: TableData = useMemo(() => {
+        if (syllables) {
+            return buildTable(syllables)
+        } else {
+            return []
+        }
+    },[syllables])
+
+    return [loading, err, syllables, tableData, reload]
 }
 
 export default useSyllables

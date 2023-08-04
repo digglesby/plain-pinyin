@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react"
-import { Context } from "../settings/settingsContext"
+import { Context } from "../state/stateContext"
 
 type Props = {
     audioTrack: string,
@@ -10,7 +10,7 @@ const SyllableAudioTrack = (props: Props) => {
 
     const [isPlaying, setIsPlaying] = useState(false)
     const audioRef = useRef(new Audio(props.audioTrack))
-    const {volume, playbackSpeed} = useContext(Context)
+    const {settings} = useContext(Context)
 
     useEffect(() => {
         audioRef.current.onended = () => {
@@ -19,9 +19,9 @@ const SyllableAudioTrack = (props: Props) => {
     }, [])
 
     useEffect(() => {
-        audioRef.current.playbackRate = playbackSpeed
-        audioRef.current.volume = volume
-    },[volume, playbackSpeed])
+        audioRef.current.playbackRate = settings.playbackSpeed
+        audioRef.current.volume = settings.volume
+    },[settings.volume, settings.playbackSpeed])
 
     useEffect(() => {
         if (isPlaying) {

@@ -7,7 +7,7 @@ export type Syllable = {
     vowel: Vowel,
     tone: Tone,
     pinyin: string,
-    pinyin_normalized: string,
+    pinyin_normalized: `${Consonant}${Vowel}${Tone}`,
     simplified_character: string,
     traditional_character: string,
     file_names: string[]
@@ -17,7 +17,7 @@ export type SyllableGroup = {
     consonant: Consonant
     vowel: Vowel,
     pinyin: string,
-    pinyin_normalized: string,
+    pinyin_normalized: `${Consonant}${Vowel}`,
     syllables: Syllable[]
 }
 

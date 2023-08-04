@@ -11,12 +11,18 @@ const TopHeader = (props: Props) => {
 
     useLayoutEffect(() => {
       const fixedHeader = () => {
-        const distToTop = stickyParent.current.getBoundingClientRect().top
-        const offset = Math.max(0, 0 - distToTop)
-        stickyHeader.current.style.top = `${offset}px`
+        if (stickyParent.current) {
+            const distToTop = stickyParent.current.getBoundingClientRect().top
+            const offset = Math.max(0, 0 - distToTop)
+            stickyHeader.current.style.top = `${offset}px`
+        }
       }
 
       window.addEventListener('scroll', fixedHeader)
+
+      return () => {
+        window.removeEventListener('scroll', fixedHeader)
+      }
     }, [])
 
     return (

@@ -14,17 +14,17 @@ const buildTable = (syllables: Syllable[]) => {
 
     tbl.push([
         null,
-        ...vowels.map((val) => {
+        ...consonants.map((val) => {
             return val.replace('uu', 'ü')
         })
     ])
 
-    for (const consonant of consonants) {
+    for (const vowel of vowels) {
         const row = []
 
-        row.push(consonant)
+        row.push(vowel.replace('uu', 'ü'))
 
-        for (const vowel of vowels) {
+        for (const consonant of consonants) {
 
             const syllableList = syllables.filter((syllable) => {
                 return (syllable.vowel == vowel) && (syllable.consonant == consonant)
@@ -40,7 +40,7 @@ const buildTable = (syllables: Syllable[]) => {
                 vowel: vowel,
                 syllables: syllableList,
                 pinyin: formatPinyin(vowel, consonant, 0),
-                pinyin_normalized: syllableList[0].pinyin_normalized.slice(0,-1)
+                pinyin_normalized: `${consonant}${vowel}`
             }
 
             row.push(syllableGroup)

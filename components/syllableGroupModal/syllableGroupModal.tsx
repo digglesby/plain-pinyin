@@ -1,38 +1,30 @@
-import { useEffect, useRef } from "react"
+import { useContext, useEffect, useRef } from "react"
 import { SyllableGroup } from "../data/syllables"
 import SyllablePlayer from "./syllablePlayer"
 import SettingControls from "../settings/settingsControls"
+import { Context } from "../state/stateContext"
 
-type Props = {
-    syllableGroup?: SyllableGroup
-    setSyllableGroup: (newVal: undefined | SyllableGroup) => void
-}
-
-const syllableGroupModal = (props: Props) => {
+const syllableGroupModal = () => {
 
     const ref = useRef<HTMLDialogElement>();
-
+    const {syllables} = useContext(Context)
 
     useEffect(() => {
-        if (props.syllableGroup) {
+        if (syllables.selectedSyllableGroup) {
             ref.current?.showModal();
         } else {
             ref.current?.close();
         }
-    }, [props.syllableGroup]);
+    }, [syllables.selectedSyllableGroup]);
 
 
-    const Syllables = (props.syllableGroup) ? props.syllableGroup.syllables.map((syllable) => {
+    const Syllables = (syllables.selectedSyllableGroup) ? syllables.selectedSyllableGroup.syllables.map((syllable) => {
         return <SyllablePlayer syllable={syllable} />
     }) : []
 
-
     return (
         <dialog
-            onClose={(e) => { console.log('onClose', e); props.setSyllableGroup(undefined) }}
-            onSubmit={(e) => { console.log('onSubmit', e) }}
-            onCancel={(e) => { console.log('onCancel', e) }}
-            onInput={(e) => { console.log('onInput', e)}}
+            onClose={ () => syllables.setSelectedSyllableGroup(undefined) }
             ref={ref}
             onClick={(e) => {
 
@@ -57,7 +49,9 @@ const syllableGroupModal = (props: Props) => {
                 <button className="close-button" onClick={() => ref.current.close()}>
                     <span className="material-symbols-outlined">close</span>
                 </button>
-                {Syllables}
+                <div className="syllable-wrapper">
+                    {Syllables}
+                </div>
                 <SettingControls />
             </div>
         </dialog>

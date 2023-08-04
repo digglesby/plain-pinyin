@@ -12,7 +12,6 @@ export default () => {
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#141318" />
         <meta name="msapplication-TileColor" content="#141318" />
         <meta name="theme-color" content="#141318" />
-        <meta name="viewport" content="width=device-width" />
       </Head>
       <body>
         <Main />

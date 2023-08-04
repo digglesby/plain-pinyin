@@ -1,15 +1,15 @@
 import { useContext } from "react"
 import { Syllable } from "../data/syllables"
 import SyllableAudioTrack from "./syllableAudioTrack"
-import { Context } from "../settings/settingsContext"
+import { Context } from "../state/stateContext"
 
 type Props = {
     syllable: Syllable
 }
 
 const SyllablePlayer = (props: Props) => {
-    const {useTrad} = useContext(Context);
-    const char = (useTrad) ? props.syllable.traditional_character : props.syllable.simplified_character
+    const {settings} = useContext(Context);
+    const char = (settings.useTrad) ? props.syllable.traditional_character : props.syllable.simplified_character
 
     const AudioTracks = props.syllable.file_names.map((name, i) => {
         return (
