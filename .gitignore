@@ -67,3 +67,5 @@ node_modules/
 
 .next
 public/data/syllables.json
+package-lock.json
+yarn.lock
