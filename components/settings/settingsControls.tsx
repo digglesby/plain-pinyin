@@ -1,15 +1,17 @@
 import { useContext, useState } from "react";
 import { Context } from "../state/stateContext";
+import MobileDropdown from "./mobileDropdown";
 
 
 const SettingControls = () => {
     const { settings } = useContext(Context);
-    const [open, setOpen] = useState<null | 'vol' | 'speed'>(null);
+    const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
+    const [focused, setFocused] = useState<null | 'vol' | 'speed'>(null);
     
     const speedSlider = (
         <input 
-            onSelect={() => setOpen('speed')}
-            onBlur={() => setOpen(null)}
+            onSelect={() => setFocused('speed')}
+            onBlur={() => setFocused(null)}
             type='range' 
             value={settings.playbackSpeed} 
             onChange={
@@ -23,8 +25,8 @@ const SettingControls = () => {
 
     const volumeSlider = (
         <input
-            onSelect={() => setOpen('vol')}
-            onBlur={() => setOpen(null)}
+            onSelect={() => setFocused('vol')}
+            onBlur={() => setFocused(null)}
             type='range' 
             value={settings.volume} 
             onChange={
@@ -38,28 +40,38 @@ const SettingControls = () => {
 
     return (
         <div className="settings-controls" onMouseLeave={() => {
-            setOpen(null)
+            setFocused(null)
         }}>
             <div className="top-row">
                 <button
                     className="mobile dropdown-button"
-                    onClick={() => setOpen('vol')}
+                    onClick={() => setDropdownOpen(!dropdownOpen)}
                     type="button"
                 >
                     <span className="material-symbols-outlined">settings</span>
                 </button>
 
-                <div className={`slider-group desktop ${(open == 'speed') ? 'open' : ''}`}>
-                    <button type="button" 
-                        onMouseOver={() => setOpen('speed')} className="playback-speed"
+                <div className={`slider-group desktop ${(focused == 'speed') ? 'open' : ''}`}>
+                    <button 
+                        type="button" 
+                        onMouseOver={() => setFocused('speed')}
+                        onFocus={() => setFocused('speed')}
+                        className="playback-speed"
                     >
                         {settings.playbackSpeed.toFixed(1)}x
                     </button>
                     {speedSlider}
                 </div>
 
-                <div className={`slider-group desktop ${(open == 'vol') ? 'open' : ''}`}>
-                    <button type="button" onMouseOver={() => setOpen('vol')} className="volume"><span className="material-symbols-outlined">volume_up</span></button>
+                <div className={`slider-group desktop ${(focused == 'vol') ? 'open' : ''}`}>
+                    <button 
+                        type="button" 
+                        onMouseOver={() => setFocused('vol')} 
+                        onFocus={() => setFocused('vol')}
+                        className="volume"
+                    >
+                        <span className="material-symbols-outlined">volume_up</span>
+                    </button>
                     {volumeSlider}
                 </div>
 
@@ -74,7 +86,9 @@ const SettingControls = () => {
                 </button>
             </div>
 
-            <div className={`dropdown ${(open != null) ? 'open' : ''}`}>
+            <MobileDropdown
+                isOpen={dropdownOpen}
+            >
                 <div className={`slider-group mobile`}>
                     <label>
                         {settings.playbackSpeed.toFixed(1)}x
@@ -88,7 +102,7 @@ const SettingControls = () => {
                     </label>
                     {volumeSlider}
                 </div>
-            </div>
+            </MobileDropdown>
         </div>
     )
 }

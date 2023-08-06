@@ -259,6 +259,10 @@ dialog .close-button>span {
     'opsz' 40
 }
 
+/*
+* Settings Controls
+*/
+
 dialog .settings-controls {
     border-top: 1px solid rgba(0,0,0,0.1);
     display: flex;
@@ -268,7 +272,17 @@ dialog .settings-controls {
     padding-top: 0.75rem;
 }
 
-dialog .settings-controls button {
+dialog .settings-controls {
+    border-top: 1px solid rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    margin-bottom: 0.5rem;
+    padding-top: 0.75rem;
+}
+
+
+dialog .settings-controls button, dialog .settings-controls label {
     background-color: var(--accent);
     border-radius: 0.5rem;
     color: var(--background);
@@ -279,9 +293,47 @@ dialog .settings-controls button {
     padding: 0.5rem;
     box-sizing: content-box;
     flex-shrink: 0;
+    display: inline-block;
+    font-size: var(--sub);
+    line-height: 32px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
 }
 
-dialog .settings-controls>.slider-group {
+dialog .settings-controls label {
+    background-color: rgba(0,0,0,0.55);
+}
+
+dialog .settings-controls .mobile {
+    display: none !important;
+}
+
+dialog .settings-controls>.top-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-self: stretch;
+}
+
+dialog .settings-controls>.dropdown{
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+    transition: height 0.2s ease-out;
+    height: 0px;
+    overflow: hidden;
+}
+
+dialog .settings-controls>.dropdown>.slider-group{
+    margin-top: 0.5rem;
+}
+
+dialog .settings-controls>.dropdown>.slider-group>input{
+    opacity: 1;
+}
+
+dialog .settings-controls>.top-row>.slider-group {
     display: flex;
     flex-direction: row;
     transition: width 0.2s ease-out;
@@ -301,8 +353,9 @@ dialog .settings-controls .use-trad {
 dialog .settings-controls .slider-group>input {
     transition: opacity 0.2s ease-out;
     opacity: 0;
-    flex: 1;
     margin-left: 0.5rem;
+    display: block;
+    align-self: stretch;
 }
 
 dialog .settings-controls .slider-group.open input {
@@ -321,25 +374,13 @@ dialog .settings-controls .spacer {
     flex:1;
 }
 
-@media only screen and (max-width: 430px) {
-    dialog .settings-controls {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
+@media only screen and (max-width: 600px) {
+    dialog .settings-controls .mobile {
+        display: inherit !important;
     }
 
-    dialog .spacer {
-        display: none;
-    }
-
-    dialog .settings-controls .slider-group.open {
-        width: 100%;
-    }
-
-    dialog .settings-controls .use-trad {
-        width: 100%;
-        box-sizing: border-box;
-        height: 48px;
+    dialog .settings-controls .desktop {
+        display: none !important;
     }
 }
 
