@@ -12,13 +12,11 @@ const PinyinCell = (props: Props) => {
     if (props.cellData === null) {
 
         return <td>{(props.row == 0 && props.column == 0) ? '🀄' : ''}</td>
-
     }
     
     if (typeof(props.cellData) === 'string') {
 
         return <th>{props.cellData}</th>
-
     }
     
     return (

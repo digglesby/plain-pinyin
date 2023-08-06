@@ -3,12 +3,26 @@ import TopHeader from './TopHeader';
 import { SyllableGroup } from '../data/syllables';
 import { Context } from '../state/stateContext';
 import PinyinCell from './PinyinCell';
+import LeftHeader from './LeftHeader';
 
 function PinyinTable() {
     const {syllables} = useContext(Context)
 
-    if (!syllables.loading) {
+    if (syllables.loading) {
 
+        return (
+            <div className='table-container loading' />
+        )
+
+    } if (syllables.err) {
+
+        return (<div className='table-container error'>
+            <h1>Failed to Load Pinyin Chart!</h1>
+            <button onClick={syllables.reload}>Retry</button>
+        </div>)
+        
+    } else {
+     
         const Rows = syllables.tableData.map((row, i)=> {
 
             const Cells = row.map((cell, p) => {
@@ -29,21 +43,24 @@ function PinyinTable() {
         return (
             <div className='table-container'>
                 <div className='main-table-wrapper'>
-                    <TopHeader>
-                        {Rows}
+                    <TopHeader
+                        rows={Rows}
+                    >
+                        <table className='top-table'>
+                            <tbody>
+                                {Rows}
+                            </tbody>
+                        </table>
                     </TopHeader>
                 </div>
-                <table className='left-header'>
-                    <tbody>
-                        {Rows}
-                    </tbody>
-                </table>
+                <LeftHeader
+                    rows={Rows}
+                />
             </div>
 
         );
-    }
 
-    return <h1>WAT</h1>
+    }
 }
 
 export default PinyinTable

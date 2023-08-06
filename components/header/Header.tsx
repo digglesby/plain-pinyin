@@ -8,7 +8,7 @@ const Header = () => {
 
     return (
         <header>
-            <a>Simple Pinyin</a>
+            <a href='/'>🀄 Simple Pinyin</a>
             <nav className={`dropdown${(isOpen) ? ' open' : ''}`}>
                 <button onClick={() => setIsOpen((val) => !val)}>
                     {
@@ -19,13 +19,13 @@ const Header = () => {
                 </button>
                 <ul>
                     <li>
-                        <a>About</a>
+                        <a href='#about'>About</a>
                     </li>
                     <li>
                         <PickRandomButton />
                     </li>
                     <li>
-                        <button>Quiz Me</button>
+                        <button className="quiz">Quiz Me</button>
                     </li>
                 </ul>
             </nav>

@@ -1,7 +1,8 @@
 import { ReactNode, useLayoutEffect, useRef } from "react"
 
 type Props = {
-    children: ReactNode
+    children: ReactNode,
+    rows: ReactNode
 }
 
 const TopHeader = (props: Props) => {
@@ -27,14 +28,10 @@ const TopHeader = (props: Props) => {
 
     return (
         <div ref={stickyParent} className='main-table-container'>
-            <table className='top-table'>
-                <tbody>
-                    {props.children}
-                </tbody>
-            </table>
+            {props.children}
             <table ref={stickyHeader} className='top-header'>
                 <tbody>
-                    {props.children}
+                    {props.rows}
                 </tbody>
             </table>
         </div>

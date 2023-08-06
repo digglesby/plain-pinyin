@@ -3,11 +3,12 @@
 */
 
 :root {
-    --background: #F8F7F7;
-    --text: #151414;
-    --primary: #BE0F0F;
-    --accent: #994848;
-    --secondary: #ebeaea;
+    --background: rgb(248, 247, 247);
+    --text: rgb(21, 20, 20);
+    --primary: rgb(190, 15, 15);
+    --primary-transparent: rgba(190, 15, 15, 0.5);
+    --accent: rgb(153, 72, 72);
+    --secondary: rgb(235, 234, 234);
 
     --h1: 48px;
     --h2: 32px;
@@ -19,11 +20,59 @@
     --icon: 32px;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+a, header>.dropdown>ul>li button {
+    color: var(--accent);
+    position: relative;
+    text-decoration: none;
+    font-weight: 400;
+}
+
+a::before, header>.dropdown>ul>li button::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  background-color: var(--accent);
+  bottom: -2px;
+  left: 0;
+  transform-origin: right;
+  transform: scaleX(0);
+  transition: transform .2s ease-out;
+}
+
+a:hover::before, header>.dropdown>ul>li button:hover::before {
+  transform-origin: left;
+  transform: scaleX(1);
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0px;
     background-color: var(--background);
     color: var(--text);
+    font-weight: 400;
+}
+
+button, .button {
+    border: none;
+    background-color: var(--primary);
+    color: var(--background);
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.1s ease-out;
+}
+
+button:hover, .button:hover {
+    background-color: var(--primary-transparent);
+}
+
+button:active {
+    background-color: var(--accent);
 }
 
 .container {
@@ -37,6 +86,10 @@ body {
     .container {
         margin: 0px 5%;
     }
+}
+
+input[type="range"] {
+    accent-color: var(--accent);
 }
 
 /*
@@ -79,13 +132,51 @@ header>.dropdown>ul {
     padding: 0px;
     display: flex;
     flex-direction: row;
-    gap: 0.5rem;
+    gap: 2rem;
     list-style: none;
 }
 
 header>.dropdown>ul>li {
     margin: 0px;
     padding: 0px;
+    display: flex;
+    flex-direction: row;
+}
+
+header>a {
+    color: var(--text);
+}
+
+header>.dropdown>ul>li a, header>.dropdown>ul>li button {
+    display: flex;
+    align-self: stretch;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--p);
+    box-sizing: border-box;
+    padding: 0.5rem 0rem;
+    background-color: transparent;
+    color: var(--text);
+    text-decoration: none;
+}
+
+
+
+header>.dropdown>ul>li .quiz {
+    color: var(--background);
+    background-color: var(--primary);
+    transition: background-color 0.1s ease-out;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+}
+
+header>.dropdown>ul>li .quiz::before {
+    display: none !important;
+}
+
+header>.dropdown>ul>li .quiz:hover {
+    background-color: var(--primary-transparent);
 }
 
 /*
@@ -95,7 +186,31 @@ header>.dropdown>ul>li {
 footer {
     background-color: var(--text);
     color: var(--background);
-    padding: 1rem;
+    padding: 2rem 0rem;
+}
+
+footer p{
+    margin: 0px;
+    text-align: center;
+}
+
+footer>nav {
+    gap: 1rem;
+}
+
+footer>nav>ul {
+    list-style: none;
+    margin: 0px;
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    padding: 0rem;
+    justify-content: center;
+}
+
+footer>nav>ul>li {
+    margin: 0px;
+    display: flex;
 }
 
 .material-symbols-outlined {
@@ -104,6 +219,15 @@ footer {
     'wght' 300,
     'GRAD' 0,
     'opsz' 40
+}
+
+/*
+* Pinyin Table
+*/
+
+@keyframes loading {
+    from {opacity: 1;}
+    to {opacity: 0.25;}
 }
 
 .table-container {
@@ -117,6 +241,32 @@ footer {
     border: 1px solid rgba(0,0,0,0.1);
     margin: 0px auto;
     background-color: var(--background);
+}
+
+.table-container.loading {
+    animation: loading 1.5s infinite;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+    width: 100%;
+    height: 80vh;
+    background-color: rgba(0,0,0,0.15);
+}
+
+.table-container.error {
+    width: 100%;
+    height: 80vh;
+    background-color: rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.table-container.error button {
+    font-size: var(--p);
 }
 
 .table-container a{
@@ -356,6 +506,7 @@ dialog .settings-controls .slider-group>input {
     margin-left: 0.5rem;
     display: block;
     align-self: stretch;
+    width: 100%;
 }
 
 dialog .settings-controls .slider-group.open input {
@@ -412,8 +563,7 @@ dialog .settings-controls .spacer {
     display: inline-block;
 
     text-align: right;
-    color: var(--primary);
-    opacity: 0.5;
+    color: var(--accent);
 }
 
 .syllable-player>div {

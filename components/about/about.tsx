@@ -1,7 +1,7 @@
 const About = () => {
 
     return (
-        <article className="about">
+        <article className="about" id='about'>
             <div>
                 <h2>What is SimplePinyin?</h2>
                 <p>Simple Pinyin is an interactive Pinyin chart I made to practice identifying tones in Mandarin. 
