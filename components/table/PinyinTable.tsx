@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useMemo, useState } from 'react';
 import TopHeader from './TopHeader';
 import { SyllableGroup } from '../data/syllables';
 import { Context } from '../state/stateContext';
@@ -7,6 +7,42 @@ import LeftHeader from './LeftHeader';
 
 function PinyinTable() {
     const {syllables} = useContext(Context)
+    const [hoveredSyllableGroup, setHoveredSyllableGroup] = useState<SyllableGroup | null>(null)
+
+    const [selectedRow, selectedColumn] = useMemo(() => {
+
+        let vowel = null
+        let consonant = null
+
+        if (syllables.selectedSyllableGroup) {
+            vowel = syllables.selectedSyllableGroup.vowel
+            consonant = syllables.selectedSyllableGroup.consonant
+        } else if (hoveredSyllableGroup) {
+            vowel = hoveredSyllableGroup.vowel
+            consonant = hoveredSyllableGroup.consonant
+        }
+        
+        if ((vowel) && (consonant)) {
+            for (let i = 0; i < syllables.tableData.length; i++) {
+                const row = syllables.tableData[i];
+                
+                for (let p = 0; p < row.length; p++) {
+                    const cell = row[p];
+                    
+                    if ((cell != null) && (typeof(cell) !== 'string')) {
+                        if (
+                            (cell.consonant === consonant) && 
+                            (cell.vowel === vowel)
+                        ) {
+                            return [i, p]
+                        }
+                    }
+                }
+            }
+        }
+
+        return [null, null]
+    }, [JSON.stringify(syllables.tableData), syllables.selectedSyllableGroup, hoveredSyllableGroup])
 
     if (syllables.loading) {
 
@@ -30,8 +66,11 @@ function PinyinTable() {
                     cellData={cell}
                     row={i}
                     column={p}
-                    key={`cell${i}${p}`}
+                    selectedRow={selectedRow}
+                    selectedColumn={selectedColumn}
+                    key={`cell-${i}-${p}`}
                     setSyllableGroup={syllables.setSelectedSyllableGroup}
+                    setHoveredSyllable={setHoveredSyllableGroup}
                 />
             })
 

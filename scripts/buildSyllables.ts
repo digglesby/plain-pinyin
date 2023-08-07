@@ -112,6 +112,7 @@ const getSyllableForPinyin = (
     const tone = getToneForPinyin(pinyin)
     const [vowel, consonant] = parseNormalizedPinyin(pinyin)
     return {
+        // @ts-ignore This should always match the consonant/verb/tone syntax
         pinyin_normalized: pinyin,
         tone: tone,
         pinyin: formatPinyin(vowel, consonant, tone),

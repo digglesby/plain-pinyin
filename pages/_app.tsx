@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Footer from '../components/footer/Footer';
 import Header from '../components/header/Header';
-import '../styles/main.css'
+import '../styles/main.scss'
 import StateProvider from '../components/state/stateProvider';
 
 function MyApp({ Component, pageProps }) {

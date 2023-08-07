@@ -1,14 +1,20 @@
 /*
 *   Vars
 */
+$background: rgb(248, 247, 247);
+$text: rgb(21, 20, 20);
+$primary: rgb(190, 15, 15);
+$accent: rgb(153, 72, 72);
+$secondary: rgb(235, 234, 234);
 
 :root {
     --background: rgb(248, 247, 247);
     --text: rgb(21, 20, 20);
     --primary: rgb(190, 15, 15);
-    --primary-transparent: rgba(190, 15, 15, 0.5);
     --accent: rgb(153, 72, 72);
     --secondary: rgb(235, 234, 234);
+
+    --primary-transparent: rgba($primary, 0.5);
 
     --h1: 48px;
     --h2: 32px;
@@ -274,8 +280,8 @@ footer>nav>ul>li {
     text-decoration: none;
 }
 
-.table-container a:hover{
-    text-decoration: underline;
+.table-container a::before{
+    display: none !important;
 }
 
 .table-container table {
@@ -295,6 +301,7 @@ footer>nav>ul>li {
     padding: 0.5rem 1rem;
     border-bottom: 1px solid rgba(0,0,0,0.1);
     border-right: 1px solid rgba(0,0,0,0.1);
+    transition: background-color 0.2s ease-out;
 }
 
 .table-container tr:nth-child(even)>td, .table-container tr:nth-child(even)>th {
@@ -330,6 +337,33 @@ footer>nav>ul>li {
 .left-header th, .left-header td, .top-header th, .top-header td {
     background-color: var(--background) !important;
     color: var(--text)
+}
+
+.table-container th.row-selected {
+    background-color: var(--accent) !important;
+    color: var(--background);
+}
+
+.table-container th.column-selected {
+    background-color: var(--accent) !important;
+    color: var(--background);
+}
+
+.table-container td.row-selected, .table-container td.column-selected {
+    background-color: rgba($accent, 0.1);
+}
+
+.table-container tr:nth-child(even)>td.row-selected, .table-container tr:nth-child(even)>td.column-selected {
+    background-color: rgba($accent, 0.2);
+}
+
+.table-container td.column-selected.row-selected {
+    background-color: var(--primary) !important;
+    color: var(--background) !important;
+}
+
+.table-container td.column-selected.row-selected>a {
+    color: var(--background) !important;
 }
 
 .left-header>tbody>tr>th, .left-header>tbody>tr>td {
