@@ -7,31 +7,31 @@ $primary: rgb(190, 15, 15);
 $accent: rgb(153, 72, 72);
 $secondary: rgb(235, 234, 234);
 
-:root {
-    --background: rgb(248, 247, 247);
-    --text: rgb(21, 20, 20);
-    --primary: rgb(190, 15, 15);
-    --accent: rgb(153, 72, 72);
-    --secondary: rgb(235, 234, 234);
+$h1: 48px;
+$h2: 32px;
+$subtitle: 24px;
+$p: 18px;
+$sub: 16px;
+$small: 14px;
 
-    --primary-transparent: rgba($primary, 0.5);
+$icon: 32px;
 
-    --h1: 48px;
-    --h2: 32px;
-    --subtitle: 24px;
-    --p: 18px;
-    --sub: 16px;
-    --small: 14px;
-
-    --icon: 32px;
-}
+$opaque: 0.9;
+$loading-opacity: 0.15;
+$border-opacity: 0.1;
+$highlight-opacity: 0.05;
+$selected-border-opacity: 0.2;
+$selected-highlight-opacity: 0.1;
+$icon-transparency: 0.55;
+$backdrop-opacity: 0.25;
+$hover-transparency: 0.5;
 
 html {
     scroll-behavior: smooth;
 }
 
 a, header>.dropdown>ul>li button {
-    color: var(--accent);
+    color: $accent;
     position: relative;
     text-decoration: none;
     font-weight: 400;
@@ -42,7 +42,7 @@ a::before, header>.dropdown>ul>li button::before {
   position: absolute;
   width: 100%;
   height: 4px;
-  background-color: var(--accent);
+  background-color: $accent;
   bottom: -2px;
   left: 0;
   transform-origin: right;
@@ -58,15 +58,15 @@ a:hover::before, header>.dropdown>ul>li button:hover::before {
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0px;
-    background-color: var(--background);
-    color: var(--text);
+    background-color: $background;
+    color: $text;
     font-weight: 400;
 }
 
 button, .button {
     border: none;
-    background-color: var(--primary);
-    color: var(--background);
+    background-color: $primary;
+    color: $background;
     padding: 0.5rem 1rem;
     border-radius: 0.25rem;
     cursor: pointer;
@@ -74,11 +74,11 @@ button, .button {
 }
 
 button:hover, .button:hover {
-    background-color: var(--primary-transparent);
+    background-color: rgba($primary, $hover-transparency);
 }
 
 button:active {
-    background-color: var(--accent);
+    background-color: $accent
 }
 
 .container {
@@ -95,7 +95,7 @@ button:active {
 }
 
 input[type="range"] {
-    accent-color: var(--accent);
+    accent-color: $accent
 }
 
 /*
@@ -117,7 +117,7 @@ header>.dropdown {
 }
 
 header>a {
-    font-size: var(--subtitle);
+    font-size: $subtitle;
     font-weight: bold;
 }
 
@@ -150,7 +150,7 @@ header>.dropdown>ul>li {
 }
 
 header>a {
-    color: var(--text);
+    color: $text
 }
 
 header>.dropdown>ul>li a, header>.dropdown>ul>li button {
@@ -159,19 +159,19 @@ header>.dropdown>ul>li a, header>.dropdown>ul>li button {
     text-align: center;
     align-items: center;
     justify-content: center;
-    font-size: var(--p);
+    font-size: $p;
     box-sizing: border-box;
     padding: 0.5rem 0rem;
     background-color: transparent;
-    color: var(--text);
+    color: $text;
     text-decoration: none;
 }
 
 
 
 header>.dropdown>ul>li .quiz {
-    color: var(--background);
-    background-color: var(--primary);
+    color: $background;
+    background-color: $primary;
     transition: background-color 0.1s ease-out;
     text-decoration: none;
     padding: 0.5rem 1rem;
@@ -182,7 +182,7 @@ header>.dropdown>ul>li .quiz::before {
 }
 
 header>.dropdown>ul>li .quiz:hover {
-    background-color: var(--primary-transparent);
+    background-color: rgba($primary, $hover-transparency)
 }
 
 /*
@@ -190,8 +190,8 @@ header>.dropdown>ul>li .quiz:hover {
 */
 
 footer {
-    background-color: var(--text);
-    color: var(--background);
+    background-color: $text;
+    color: $background;
     padding: 2rem 0rem;
 }
 
@@ -242,11 +242,11 @@ footer>nav>ul>li {
     height: 100%;
     overflow: hidden;
     min-height: 100px;
-    font-size: var(--sub);
+    font-size: $sub;
     border-radius: 0.5rem;
-    border: 1px solid rgba(0,0,0,0.1);
+    border: 1px solid rgba($text, $border-opacity);
     margin: 0px auto;
-    background-color: var(--background);
+    background-color: $background;
 }
 
 .table-container.loading {
@@ -255,13 +255,13 @@ footer>nav>ul>li {
     animation-timing-function: ease-in-out;
     width: 100%;
     height: 80vh;
-    background-color: rgba(0,0,0,0.15);
+    background-color: rgba($text, $loading-opacity);
 }
 
 .table-container.error {
     width: 100%;
     height: 80vh;
-    background-color: rgba(0,0,0,0.15);
+    background-color: rgba($text, $loading-opacity);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -272,11 +272,11 @@ footer>nav>ul>li {
 }
 
 .table-container.error button {
-    font-size: var(--p);
+    font-size: $p
 }
 
 .table-container a{
-    color: var(--text);
+    color: $text;
     text-decoration: none;
 }
 
@@ -299,13 +299,13 @@ footer>nav>ul>li {
 
 .table-container td, .table-container th {
     padding: 0.5rem 1rem;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
-    border-right: 1px solid rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgba($text, $border-opacity);
+    border-right: 1px solid rgba($text, $border-opacity);
     transition: background-color 0.2s ease-out;
 }
 
 .table-container tr:nth-child(even)>td, .table-container tr:nth-child(even)>th {
-    background-color: rgba(0,0,0,0.05);
+    background-color: rgba($text, $highlight-opacity);
 }
 
 .table-container>.main-table-wrapper {
@@ -335,35 +335,35 @@ footer>nav>ul>li {
 }
 
 .left-header th, .left-header td, .top-header th, .top-header td {
-    background-color: var(--background) !important;
-    color: var(--text)
+    background-color: $background !important;
+    color: $text
 }
 
 .table-container th.row-selected {
-    background-color: var(--accent) !important;
-    color: var(--background);
+    background-color: $accent !important;
+    color: $background
 }
 
 .table-container th.column-selected {
-    background-color: var(--accent) !important;
-    color: var(--background);
+    background-color: $accent !important;
+    color: $background
 }
 
 .table-container td.row-selected, .table-container td.column-selected {
-    background-color: rgba($accent, 0.1);
+    background-color: rgba($accent, $highlight-opacity);
 }
 
 .table-container tr:nth-child(even)>td.row-selected, .table-container tr:nth-child(even)>td.column-selected {
-    background-color: rgba($accent, 0.2);
+    background-color: rgba($accent, $selected-highlight-opacity);
 }
 
 .table-container td.column-selected.row-selected {
-    background-color: var(--primary) !important;
-    color: var(--background) !important;
+    background-color: $primary !important;
+    color: $background !important;
 }
 
 .table-container td.column-selected.row-selected>a {
-    color: var(--background) !important;
+    color: $background !important;
 }
 
 .left-header>tbody>tr>th, .left-header>tbody>tr>td {
@@ -397,8 +397,8 @@ dialog {
     top: 50%;
     transform: translate(-50%, -50%);
     margin: 0px;
-    background-color: var(--background);
-    box-shadow: 0px 0px 10px var(--text);
+    background-color: $background;
+    box-shadow: 0px 0px 10px $text;
     z-index: 10;
     border: 0px;
     border-radius: 0.5rem;
@@ -410,7 +410,7 @@ dialog {
 }
 
 dialog::backdrop {
-    background: rgba(0, 0, 0, 0.25);
+    background: rgba($text, $backdrop-opacity);
 }
 
 dialog>div {
@@ -428,14 +428,14 @@ dialog .close-button {
     justify-content: center;
     align-items: center;
     padding: 0px;
-    width: var(--icon);
-    height: var(--icon);
+    width: $icon;
+    height: $icon;
     cursor: pointer;
 }
 
 dialog .close-button>span {
-    font-size: var(--icon);
-    color: var(--background);
+    font-size: $icon;
+    color: $background;
     font-variation-settings:
     'FILL' 0,
     'wght' 800,
@@ -448,28 +448,28 @@ dialog .close-button>span {
 */
 
 dialog .settings-controls {
-    border-top: 1px solid rgba(0,0,0,0.1);
+    border-top: 1px solid rgba($text, $border-opacity);
     display: flex;
     flex-direction: row;
-    align-items: end;
+    align-items: flex-end;
     margin-bottom: 0.5rem;
     padding-top: 0.75rem;
 }
 
 dialog .settings-controls {
-    border-top: 1px solid rgba(0,0,0,0.1);
+    border-top: 1px solid rgba($text, $border-opacity);
     display: flex;
     flex-direction: column;
-    align-items: end;
+    align-items: flex-end;
     margin-bottom: 0.5rem;
     padding-top: 0.75rem;
 }
 
 
 dialog .settings-controls button, dialog .settings-controls label {
-    background-color: var(--accent);
+    background-color: $accent;
     border-radius: 0.5rem;
-    color: var(--background);
+    color: $background;
     border: none;
     word-break: keep-all;
     width: 32px;
@@ -478,7 +478,7 @@ dialog .settings-controls button, dialog .settings-controls label {
     box-sizing: content-box;
     flex-shrink: 0;
     display: inline-block;
-    font-size: var(--sub);
+    font-size: $sub;
     line-height: 32px;
     display: inline-flex;
     justify-content: center;
@@ -486,7 +486,7 @@ dialog .settings-controls button, dialog .settings-controls label {
 }
 
 dialog .settings-controls label {
-    background-color: rgba(0,0,0,0.55);
+    background-color: rgba($text, $icon-transparency);
 }
 
 dialog .settings-controls .mobile {
@@ -527,7 +527,7 @@ dialog .settings-controls>.top-row>.slider-group {
 }
 
 dialog .settings-controls .volume {
-    font-size: var(--icon);
+    font-size: $icon
 }
 
 dialog .settings-controls .use-trad {
@@ -581,9 +581,9 @@ dialog .settings-controls .spacer {
 }
 
 .syllable-player .audio-track>button>span {
-    font-size: var(--icon);
+    font-size: $icon;
     font-weight: 500;
-    color: rgba(0,0,0,0.55);
+    color: rgba($text, $icon-transparency);
 }
 
 .syllable-player>h2 {
@@ -592,12 +592,12 @@ dialog .settings-controls .spacer {
 }
 
 .syllable-player>h2>span {
-    width: var(--icon);
-    height: var(--icon);
+    width: $icon;
+    height: $icon;
     display: inline-block;
 
     text-align: right;
-    color: var(--accent);
+    color: $accent
 }
 
 .syllable-player>div {
@@ -648,9 +648,9 @@ dialog .settings-controls .spacer {
 }
 
 .syllable-player .audio-track>button>span {
-    font-size: var(--icon);
+    font-size: $icon;
     font-weight: 500;
-    color: rgba(0,0,0,0.55);
+    color: rgba($text, $icon-transparency);
 }
 
 /*
@@ -660,8 +660,8 @@ dialog .settings-controls .spacer {
 .about {
     display: flex;
     flex-direction: column;
-    margin: var(--h2) 0px;
-    background-color: var(--secondary);
+    margin: $h2 0px;
+    background-color: $secondary;
     padding: 2rem;
     gap: 2rem;
     border-radius: 0.5rem;
@@ -674,11 +674,11 @@ dialog .settings-controls .spacer {
 }
 
 .about>div>h2 {
-    font-size: var(--subtitle);
+    font-size: $subtitle;
     margin: 0px;
 }
 
 .about>div>p {
-    font-size: var(--p);
+    font-size: $p;
     margin: 0px;
 }

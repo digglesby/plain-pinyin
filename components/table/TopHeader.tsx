@@ -1,4 +1,4 @@
-import { ReactNode, useLayoutEffect, useRef } from "react"
+import { ReactNode, useEffect, useLayoutEffect, useRef } from "react"
 
 type Props = {
     children: ReactNode,
@@ -10,7 +10,7 @@ const TopHeader = (props: Props) => {
     const stickyHeader = useRef<HTMLTableElement>()
     const stickyParent = useRef<HTMLTableElement>()
 
-    useLayoutEffect(() => {
+    useEffect(() => {
       const fixedHeader = () => {
         if (stickyParent.current) {
             const distToTop = stickyParent.current.getBoundingClientRect().top
@@ -19,10 +19,12 @@ const TopHeader = (props: Props) => {
         }
       }
 
-      window.addEventListener('scroll', fixedHeader)
+      if (window){
+        window.addEventListener('scroll', fixedHeader)
 
-      return () => {
-        window.removeEventListener('scroll', fixedHeader)
+        return () => {
+            window.removeEventListener('scroll', fixedHeader)
+        }
       }
     }, [])
 
