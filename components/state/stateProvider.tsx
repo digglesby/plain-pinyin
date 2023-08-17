@@ -11,7 +11,7 @@ type Props = {
 const StateProvider = (props: Props) => {
   const [volume, playbackSpeed, useTrad, setVolume, setPlaybackSpeed, setUseTrad] = useSettings()
   const [loading, err, syllables, tableData, reload] = useSyllables()
-  const [selectedSyllableGroup, setSelectedSyllableGroup] = useSelectedSyllableGroup(tableData)
+  const [selectedSyllableGroup, setSelectedSyllableGroup] = useSelectedSyllableGroup(syllables)
 
   const state: State = useMemo(
     (): State => {

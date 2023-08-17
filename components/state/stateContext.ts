@@ -1,6 +1,6 @@
 // context.js
 import { createContext } from 'react';
-import { Syllable, SyllableGroup } from '../data/syllables';
+import { Syllable, SyllableData, SyllableGroup } from '../data/syllables';
 import { TableData } from '../data/buildTable';
 
 export type State = {
@@ -15,7 +15,7 @@ export type State = {
     syllables: {
         loading: boolean,
         err: undefined | Error,
-        syllables: Syllable[],
+        syllables: SyllableData,
         tableData: TableData,
         reload: () => void,
         selectedSyllableGroup: SyllableGroup | undefined,
@@ -35,7 +35,10 @@ export const Context = createContext<State>({
     syllables: {
         loading: true,
         err: undefined,
-        syllables: [],
+        syllables: {
+            syllableArray: [],
+            syllableGroupMap: {}
+        },
         tableData: [], 
         reload: () => {},
         selectedSyllableGroup: undefined,

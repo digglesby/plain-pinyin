@@ -2,6 +2,15 @@ import { Consonant } from "./consonants"
 import { Tone } from "./tones"
 import { Vowel } from "./vowels"
 
+export type SyllableData = {
+    syllableArray: Syllable[],
+    syllableGroupMap: Partial<{
+        [key in Vowel]: Partial<{
+            [key in Consonant]: SyllableGroup
+        }>
+    }>
+}
+
 export type Syllable = {
     consonant: Consonant
     vowel: Vowel,

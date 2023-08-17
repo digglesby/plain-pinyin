@@ -1,11 +1,11 @@
 import { Consonant } from "./consonants"
 import formatPinyin from "./formatPinyin"
-import { Syllable, SyllableGroup } from "./syllables"
+import { Syllable, SyllableData, SyllableGroup } from "./syllables"
 import { Vowel } from "./vowels"
 
 export type TableData = (SyllableGroup | Consonant | Vowel | null)[][]
 
-const buildTable = (syllables: Syllable[]) => {
+const buildTable = (syllables: SyllableData) => {
 
     const tbl = []
 
@@ -26,24 +26,12 @@ const buildTable = (syllables: Syllable[]) => {
 
         for (const consonant of consonants) {
 
-            const syllableList = syllables.filter((syllable) => {
-                return (syllable.vowel == vowel) && (syllable.consonant == consonant)
-            })
-
-            if (syllableList.length == 0) {
-                row.push(null)
+            if ((!syllables.syllableGroupMap[vowel]) || (!syllables.syllableGroupMap[vowel][consonant])) {
+                row.push(null);
                 continue
             }
 
-            const syllableGroup: SyllableGroup = {
-                consonant: consonant,
-                vowel: vowel,
-                syllables: syllableList,
-                pinyin: formatPinyin(vowel, consonant, 0),
-                pinyin_normalized: `${consonant}${vowel}`
-            }
-
-            row.push(syllableGroup)
+            row.push(syllables.syllableGroupMap[vowel][consonant])
         }
 
         tbl.push(row)

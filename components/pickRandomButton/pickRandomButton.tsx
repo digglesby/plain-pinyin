@@ -2,15 +2,17 @@ import { useContext } from "react";
 import { Context } from "../state/stateContext";
 
 const PickRandomButton = () => {
-    const {syllables} = useContext(Context);
+    const {syllables, setSelectedSyllableGroup} = useContext(Context).syllables;
 
     const pickRandom = () => {
-        if (syllables.syllables.length == 0) {
+
+        if (syllables.syllableArray.length == 0) {
             return
         }
 
-        const rand = syllables.syllables[Math.floor(syllables.syllables.length * Math.random())]
-        syllables.setSelectedSyllableGroup(`${rand.consonant}${rand.vowel}`)
+        const syllable = syllables.syllableArray[Math.floor(syllables.syllableArray.length * Math.random())]
+
+        setSelectedSyllableGroup(syllables.syllableGroupMap[syllable.vowel][syllable.consonant])
     }
 
     return (

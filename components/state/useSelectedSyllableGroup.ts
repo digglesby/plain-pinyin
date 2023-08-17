@@ -1,11 +1,29 @@
-import { useEffect, useMemo, useState } from "react"
-import { Syllable, SyllableGroup } from "../data/syllables"
-import axios from "axios"
+import { useEffect, useState } from "react"
+import { SyllableData, SyllableGroup } from "../data/syllables"
 import { Consonant } from "../data/consonants"
 import { Vowel } from "../data/vowels"
-import buildTable, { TableData } from "../data/buildTable"
 
-const useSyllables = (tableData: TableData): [
+const parsePinyin = (text: string): [Vowel, Consonant] | [null, null] => {
+
+    const consonant = Object.values(Consonant)
+        .filter((val) => { return text.startsWith(val) })
+        .sort((a, b) => b.length - a.length)[0]
+
+    if (!consonant) {
+        return [null, null]
+    }
+
+    const vowel = Object.values(Vowel)
+        .find((val) => { return text.substring(consonant.length) === val })
+
+    if (!vowel) {
+        return [null, null]
+    }
+
+    return [vowel, consonant]
+}
+
+const useSyllables = (syllableData: SyllableData): [
     SyllableGroup,
     (v: SyllableGroup) => void
 ] => {
@@ -34,24 +52,13 @@ const useSyllables = (tableData: TableData): [
             return
         }
 
-        //TODO: Make this an object lookup
-        const syllableGroup = tableData.flat().find((cellData) => {
-
-            if ((cellData === null) || (typeof(cellData) === 'string')) {
-                return false
-            }
-
-            if (cellData.pinyin_normalized !== syllableGroupPinyin){
-                return false
-            }
-
-            return true
-        }) as SyllableGroup
+        const [vowel, consonant] = parsePinyin(syllableGroupPinyin)
+        const syllableGroup = ((vowel) && (consonant)) ? syllableData.syllableGroupMap[vowel][consonant] : undefined
 
         window.location.hash = syllableGroupPinyin ?? ''
 
         if (syllableGroup) setSelectedSyllableGroup(syllableGroup)
-    },[JSON.stringify(tableData), syllableGroupPinyin])
+    },[JSON.stringify(syllableData), syllableGroupPinyin])
 
     return [selectedSyllableGroup, (s: SyllableGroup | string | undefined) => {
 

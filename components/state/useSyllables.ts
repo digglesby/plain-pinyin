@@ -1,33 +1,36 @@
 import { useEffect, useMemo, useState } from "react"
-import { Syllable, SyllableGroup } from "../data/syllables"
+import { Syllable, SyllableData, SyllableGroup } from "../data/syllables"
 import axios from "axios"
 import { Consonant } from "../data/consonants"
 import { Vowel } from "../data/vowels"
 import buildTable, { TableData } from "../data/buildTable"
 
 let fetching = false
-let cachedSyllables: Syllable[] | null = null
+let cachedSyllables: SyllableData | null = null
 
 const useSyllables = (): [
     boolean, 
     Error | undefined, 
-    Syllable[],
+    SyllableData,
     TableData,
     () => void,
 ] => {
     const [err, setErr] = useState<Error | undefined>()
     const [loading, setLoading] = useState<boolean>(fetching)
-    const [syllables, setSyllables] = useState<Syllable[]>(cachedSyllables)
+    const [syllables, setSyllables] = useState<SyllableData>(cachedSyllables)
 
     const reload = async () => {
         setLoading(true)
         setErr(undefined)
-        setSyllables([])
+        setSyllables({
+            syllableArray: [],
+            syllableGroupMap: {}
+        })
         fetching == true
 
         try {
             const data = await axios.get('/data/syllables.json')
-            cachedSyllables = data.data as Syllable[]
+            cachedSyllables = data.data as SyllableData
 
             setSyllables(cachedSyllables)
         } catch (fetchErr) {

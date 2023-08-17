@@ -1,6 +1,6 @@
 import { Vowel } from "../components/data/vowels";
 import { Consonant } from "../components/data/consonants";
-import { Syllable } from "../components/data/syllables";
+import { Syllable, SyllableData, SyllableGroup } from "../components/data/syllables";
 import * as fs from 'fs'
 import { exit } from "node:process";
 import path from "path";
@@ -124,9 +124,28 @@ const getSyllableForPinyin = (
     }
 }
 
+const getSyllableGroup = (
+    vowel: Vowel,
+    consonant: Consonant
+): SyllableGroup => {
+
+    const syllableGroup: SyllableGroup = {
+        consonant: consonant,
+        vowel: vowel,
+        syllables: [],
+        pinyin: formatPinyin(vowel, consonant, 0),
+        pinyin_normalized: `${consonant}${vowel}`
+    }
+
+    return syllableGroup
+}
 
 try {
-    const syllableArray = []
+    var entries = 0;
+    var syllableData: SyllableData = {
+        syllableArray: [],
+        syllableGroupMap: {}
+    };
 
     fs.readdir(soundsDir, (err, dirs) => {
         if (err) throw err
@@ -135,14 +154,28 @@ try {
 
             const soundFiles = fs.readdirSync(path.join(soundsDir, dir))
             const syllable = getSyllableForPinyin(dir, soundFiles)
-            syllableArray.push(syllable)
+            entries++;
+            
+            if (!syllableData.syllableGroupMap[syllable.vowel]) {
+                syllableData.syllableGroupMap[syllable.vowel] = {}
+            }
+
+            if (!syllableData.syllableGroupMap[syllable.vowel][syllable.consonant]) {
+                syllableData.syllableGroupMap[syllable.vowel][syllable.consonant] = getSyllableGroup(
+                    syllable.vowel,
+                    syllable.consonant
+                )
+            }
+
+            syllableData.syllableGroupMap[syllable.vowel][syllable.consonant].syllables.push(syllable)
+            syllableData.syllableArray.push(syllable)
         }
 
-        const syllableData = Buffer.from(JSON.stringify(syllableArray), 'utf-8')
+        const syllableFileData = Buffer.from(JSON.stringify(syllableData), 'utf-8')
 
-        fs.writeFile(path.join(dataDir, 'syllables.json'), syllableData, (err) => {
+        fs.writeFile(path.join(dataDir, 'syllables.json'), syllableFileData, (err) => {
             if (err) throw err
-            console.log(`Wrote ${syllableData.byteLength} bytes, ${syllableArray.length} syllables`)
+            console.log(`Wrote ${syllableFileData.byteLength} bytes, ${dirs.length} syllables`)
         })
     })
 

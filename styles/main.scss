@@ -18,13 +18,15 @@ $icon: 32px;
 
 $opaque: 0.9;
 $loading-opacity: 0.15;
-$border-opacity: 0.1;
-$highlight-opacity: 0.05;
-$selected-border-opacity: 0.2;
-$selected-highlight-opacity: 0.1;
 $icon-transparency: 0.55;
 $backdrop-opacity: 0.25;
 $hover-transparency: 0.5;
+
+$border-opacity: 0.1;
+$highlight-opacity: 0.05;
+$selected-border-opacity: 0.2;
+
+$selected-highlight-opacity: 0.1;
 
 html {
     scroll-behavior: smooth;
