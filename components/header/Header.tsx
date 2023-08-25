@@ -1,5 +1,6 @@
 import { useState } from "react"
 import PickRandomButton from "../pickRandomButton/pickRandomButton"
+import QuizButton from "../quizButton/quizButton"
 
 
 const Header = () => {
@@ -25,7 +26,7 @@ const Header = () => {
                         <PickRandomButton />
                     </li>
                     <li>
-                        <button className="quiz">Quiz Me</button>
+                        <QuizButton />
                     </li>
                 </ul>
             </nav>

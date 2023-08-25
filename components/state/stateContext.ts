@@ -21,6 +21,13 @@ export type State = {
         selectedSyllableGroup: SyllableGroup | undefined,
         setSelectedSyllableGroup: (v: SyllableGroup | string | undefined) => void
     }
+    quiz: {
+        sounds?: Syllable[],
+        options?: Syllable[][],
+        answers?: Syllable[],
+        setSounds(v: Syllable[]),
+        answerQuestion(i: number, v: Syllable)
+    }
 }
 
 export const Context = createContext<State>({
@@ -43,5 +50,9 @@ export const Context = createContext<State>({
         reload: () => {},
         selectedSyllableGroup: undefined,
         setSelectedSyllableGroup: (v: SyllableGroup) => {}
-    }    
+    },
+    quiz: {
+        setSounds: (v: Syllable[]) => {},
+        answerQuestion: (i: number, v: Syllable) => {}
+    }
 });

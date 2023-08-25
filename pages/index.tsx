@@ -5,6 +5,7 @@ import { SyllableGroup } from '../components/data/syllables';
 import SyllableGroupModal from '../components/syllableGroupModal';
 import StateProvider from '../components/state/stateProvider';
 import About from '../components/about/about';
+import QuizModal from '../components/quizModal/quizModal';
 
 
 function HomePage() {
@@ -16,6 +17,7 @@ function HomePage() {
           <meta name="description" content="Pinyin Tool" />
         </Head>
         <SyllableGroupModal />
+        <QuizModal />
         <Table />
         <About />
       </>
