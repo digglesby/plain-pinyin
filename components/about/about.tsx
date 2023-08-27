@@ -20,7 +20,7 @@ const About = () => {
             <div>
                 <h2>How can I help make this tool better?</h2>
                 <p>The <a href='https://github.com/digglesby/pinyin'>source code</a> for this website is available on Github and PRs are welcome! 
-                    If you want to help contribute pronunciations to the chart, and aren't super familar with Github feel free to email me at <a href='mailto:thedude@idgglesby.com'>thedude@digglesby.com</a>
+                    If you want to help contribute pronunciations to the chart, and aren't super familar with Github feel free to email me at <a href='mailto:thedude@digglesby.com'>thedude@digglesby.com</a>
                 </p>
             </div>
         </article>
