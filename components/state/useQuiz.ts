@@ -46,20 +46,25 @@ const useSettings = (syllables: SyllableData): [
 
         while (soundOptions.length < 4) {
             const rnd = Math.floor(Math.random()*4)
+            let sound:Syllable
 
             switch(rnd) {
                 case 0:
-                    if (similarConsonantPool.length > 0) soundOptions.push(similarConsonantPool.pop())
+                    if (similarConsonantPool.length > 0) sound = similarConsonantPool.pop()
                     break;
                 case 1:
-                    if (similarTonePool.length > 0) soundOptions.push(similarTonePool.pop())
+                    if (similarTonePool.length > 0) sound = similarTonePool.pop()
                     break;
                 case 2:
-                    if (similarVowelPool.length > 0) soundOptions.push(similarVowelPool.pop())
+                    if (similarVowelPool.length > 0) sound = similarVowelPool.pop()
                     break;
                 case 3:
-                    if (possibleSylablePool.length > 0) soundOptions.push(possibleSylablePool.pop())
+                    if (possibleSylablePool.length > 0) sound = possibleSylablePool.pop()
                     break;
+            }
+
+            if (!soundOptions.some((opt) => { return (opt.pinyin_normalized === sound.pinyin_normalized) })) {
+                soundOptions.push(sound)
             }
         }
 

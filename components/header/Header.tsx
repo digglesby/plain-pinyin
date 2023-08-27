@@ -14,7 +14,7 @@ const Header = () => {
                 <button onClick={() => setIsOpen((val) => !val)}>
                     {
                         (!isOpen) ? 
-                        <span className="material-symbols-outlined">expand_more</span> : 
+                        <span className="material-symbols-outlined">menu</span> : 
                         <span className="material-symbols-outlined">expand_less</span>
                     }
                 </button>

@@ -13,7 +13,7 @@ function HomePage() {
   return (
       <>
         <Head>
-          <title>Pinyin</title>
+          <title>Simple Pinyin</title>
           <meta name="description" content="Pinyin Tool" />
         </Head>
         <SyllableGroupModal />

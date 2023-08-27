@@ -41,18 +41,16 @@ const AudioPlayer = (props: Props) => {
 
     const PlayButton = (!isPlaying) ?
         (
-            <button type="button" onClick={() => setIsPlaying(true)}>
+            <button className="audio-player" type="button" onClick={() => setIsPlaying(true)}>
                 <span className="material-symbols-outlined">play_circle</span>
             </button>
         ) : (
-            <button type="button" onClick={() => setIsPlaying(false)}>
+            <button className="audio-player" type="button" onClick={() => setIsPlaying(false)}>
                 <span className="material-symbols-outlined">stop_circle</span>
             </button>
         )
 
-    return (<div className="audio-player">
-        {PlayButton}
-    </div>)
+    return PlayButton
 }
 
 export default AudioPlayer

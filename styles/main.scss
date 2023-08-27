@@ -169,8 +169,6 @@ header>.dropdown>ul>li a, header>.dropdown>ul>li button {
     text-decoration: none;
 }
 
-
-
 header>.dropdown>ul>li .quiz {
     color: $background;
     background-color: $primary;
@@ -186,6 +184,52 @@ header>.dropdown>ul>li .quiz::before {
 header>.dropdown>ul>li .quiz:hover {
     background-color: rgba($primary, $hover-transparency)
 }
+
+@media only screen and (max-width: 600px) {
+    header {
+        flex-direction: column;
+        position: relative;
+    }
+    header>a{
+        align-self: flex-start;
+    }
+
+    header>.dropdown>ul {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    header>.dropdown>button {
+        display: block;
+        color: $text;
+        height: $h2;
+        position: absolute;
+        top: 20px;
+        right: 0px;
+        padding: 0px;
+    }
+
+    header>.dropdown {
+        align-self: flex-end;
+    }
+
+    header>.dropdown>button>span {
+        font-size: $h2;
+    }
+
+    header>.dropdown>ul {
+        display: none;
+    }
+
+    header>.dropdown.open>ul {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+        align-items: flex-end;
+    }
+}
+
+
 
 /*
 * Footer
@@ -409,10 +453,18 @@ dialog {
     flex-direction: column;
     width: calc(90% - 4rem);
     overflow: visible;
+    z-index: 11;
 }
 
-dialog::backdrop {
+dialog::backdrop, .dialog-backdrop {
     background: rgba($text, $backdrop-opacity);
+    z-index: 10;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    right:0px;
+    bottom:0px;
+    content:'';
 }
 
 dialog>div {
@@ -683,4 +735,159 @@ dialog .settings-controls .spacer {
 .about>div>p {
     font-size: $p;
     margin: 0px;
+}
+
+/*
+* Quiz
+*/
+
+.quiz-wrapper {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.audio-player{
+    justify-content: space-between;
+    background: none;
+    border: none;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    padding-left: 0px;
+    padding-right: 0px;
+    cursor: pointer;
+}
+
+.audio-player:hover {
+    background: transparent;
+}
+
+.audio-player>span{
+    color: rgba($text, $icon-transparency);
+}
+
+.quiz-wrapper .audio-player>span{
+    font-size: 90px;
+    font-weight: 500;
+    color: rgba($text, $icon-transparency);
+}
+
+.quiz-wrapper .audio-player {
+    align-self: center;
+}
+
+.quiz-options {
+    display: grid;
+    align-self: stretch;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1rem;
+    box-sizing: border-box;
+    margin-bottom: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.quiz-options>div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.quiz-wrapper>.progress {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    margin: 0px;
+    color: rgba($text, $icon-transparency)
+}
+
+.quiz-options button {
+    font-size: $subtitle;
+    box-sizing: border-box;
+    background-color: rgba($text, $highlight-opacity);
+    color: $text;
+    font-weight: bold;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.quiz-options button:hover {
+    color: $accent;
+    background-color: rgba($text, $selected-highlight-opacity);
+}
+
+.quiz-wrapper>p {
+    text-align: center;
+}
+
+.quiz-results {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    max-height: 80vh;
+    align-items: center;
+}
+
+.quiz-results>h2 {
+    font-size: $h1;
+    text-align: center;
+    margin: 1rem 0rem;
+    z-index: 12;
+}
+
+.quiz-results>table {
+    align-self: stretch;
+    border-spacing: 0px 0.5rem;
+    font-size: $p;
+}
+
+.quiz-results>table tr>td {
+    color: green;
+    background-color: rgba(green, $highlight-opacity);
+}
+
+.quiz-results>table tr.incorrect>td {
+    color: $accent;
+    background-color: rgba($accent, $highlight-opacity);
+}
+
+.quiz-results>table tr>td:nth-child(1) {
+    text-align: center;
+    width: 2rem;
+    vertical-align: baseline;
+    border-radius: 0.5rem 0rem 0rem 0.5rem;
+}
+
+.quiz-results>table tr>td:last-child {
+    border-radius: 0rem 0.5rem 0.5rem 0rem;
+}
+
+.quiz-results>table tr>td:nth-child(1)>span {
+    color: green;
+    margin-top: 5px;
+}
+
+.quiz-results>table tr.incorrect>td:nth-child(1)>span {
+    color: $accent;
+}
+
+.quiz-results>table tr>td:last-child {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 0.5rem;
+}
+
+.quiz-results>table tr>td:nth-child(2)>span {
+    text-decoration: line-through;
+    display: inline-block;
+    margin-right: 0.5rem;
+}
+
+@media only screen and (max-width: 600px) {
+    .quiz-options {
+        grid-template-columns: 1fr;
+    }
+    
 }

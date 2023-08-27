@@ -19,7 +19,7 @@ const syllableGroupModal = () => {
 
 
     const Syllables = (syllables.selectedSyllableGroup) ? syllables.selectedSyllableGroup.syllables.map((syllable) => {
-        return <SyllablePlayer syllable={syllable} />
+        return <SyllablePlayer key={syllable.pinyin_normalized} syllable={syllable} />
     }) : []
 
     return (

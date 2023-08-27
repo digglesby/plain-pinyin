@@ -44,19 +44,19 @@ function PinyinTable() {
         return [null, null]
     }, [JSON.stringify(syllables.tableData), syllables.selectedSyllableGroup, hoveredSyllableGroup])
 
-    if (syllables.loading) {
-
-        return (
-            <div className='table-container loading' />
-        )
-
-    } if (syllables.err) {
+    if (syllables.err) {
 
         return (<div className='table-container error'>
             <h1>Failed to Load Pinyin Chart!</h1>
             <button onClick={syllables.reload}>Retry</button>
         </div>)
-        
+    
+    } else if ((!syllables.syllables) || (syllables.syllables.syllableArray.length === 0)) {
+
+        return (
+            <div className='table-container loading' />
+        )
+
     } else {
      
         const Rows = syllables.tableData.map((row, i)=> {

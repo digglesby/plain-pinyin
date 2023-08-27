@@ -38,6 +38,8 @@ const useSyllables = (syllableData: SyllableData): [
 
     useEffect(() => {
 
+        if ((!syllableData) || (syllableData.syllableArray.length === 0)) return
+
         if (!syllableGroupPinyin) {
             setSelectedSyllableGroup(undefined)
 
