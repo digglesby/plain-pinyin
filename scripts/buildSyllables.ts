@@ -11,8 +11,8 @@ import characterLookupSimp from './characterLookupSimp.json'
 
 //We're gonna read backwards from sounds because it's already defined
 //and I'm lazy
-const soundsDir = 'public/sounds'
-const dataDir = 'public/data'
+const soundsDir = path.join(__dirname, '../public/sounds')
+const dataDir = path.join(__dirname, '../public/data')
 
 const getToneForPinyin = (pinyin: string): Tone => {
     const toneNum = parseInt(pinyin.slice(-1))
