@@ -147,7 +147,7 @@ try {
         syllableGroupMap: {}
     };
 
-    fs.readdir(soundsDir, (err, dirs) => {
+    fs.readdir(soundsDir, async (err, dirs) => {
         if (err) throw err
 
         for (const dir of dirs) {
@@ -173,7 +173,13 @@ try {
 
         const syllableFileData = Buffer.from(JSON.stringify(syllableData), 'utf-8')
 
-        fs.writeFile(path.join(dataDir, 'syllables.json'), syllableFileData, (err) => {
+        try {
+            await fs.promises.mkdir(dataDir)
+        } catch (err){
+
+        }
+
+        await fs.writeFile(path.join(dataDir, 'syllables.json'), syllableFileData, (err) => {
             if (err) throw err
             console.log(`Wrote ${syllableFileData.byteLength} bytes, ${dirs.length} syllables`)
         })
