@@ -3,10 +3,10 @@ const About = () => {
     return (
         <article className="about" id='about'>
             <div>
-                <h2>What is SimplePinyin?</h2>
-                <p>Simple Pinyin is an interactive Pinyin chart I made to practice identifying tones in Mandarin. 
+                <h2>What is Plain Pinyin?</h2>
+                <p>Plain Pinyin is an interactive Pinyin chart I made to practice identifying tones in Mandarin. 
                     I created it because all of the free Pinyin charts I found online didn’t offer a quiz feature and those that did were locked behind a paywall. 
-                    Simple Pinyin is provided free without ads.
+                    Plain Pinyin is provided free without ads.
                 </p>
             </div>
             <div>

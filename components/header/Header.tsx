@@ -9,7 +9,7 @@ const Header = () => {
 
     return (
         <header>
-            <a href='/'>🀄 Simple Pinyin</a>
+            <a href='/'>🀄 Plain Pinyin</a>
             <nav className={`dropdown${(isOpen) ? ' open' : ''}`}>
                 <button onClick={() => setIsOpen((val) => !val)}>
                     {
